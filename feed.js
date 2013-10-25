@@ -1,6 +1,8 @@
 var FeedParser = require('feedparser')
 , request = require('request');
 
+
+
 request('http://b.hatena.ne.jp/hotentry.rss')
   .pipe(new FeedParser())
   .on('readable', function () {
@@ -12,9 +14,11 @@ request('http://b.hatena.ne.jp/hotentry.rss')
 	  console.log('jstr: ' + jstr);
 	  request({
 	      'uri': 'http://localhost:3000/posts',
-	      'method': 'post',
+	      'method': 'POST',
 	      'body': jstr,
-	      'content-type': 'application/json'
+	      'headers': {
+		'Content-Type': 'application/json'
+	      }
 	  });
       }
   })

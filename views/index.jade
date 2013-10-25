@@ -1,0 +1,11 @@
+extends layout
+
+block scripts
+  script(src='/javascripts/client.js')
+
+block content
+  h1= title
+  form#form(action='')
+    input#message(type='text',name='message')
+    input(type='submit')
+  dl#messages

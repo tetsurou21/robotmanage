@@ -12,6 +12,7 @@
     "request": "*",
     "websocket.io": "*",
     "ws": "*",
-    "moment": "*"
+    "moment": "*",
+    "csv": "0.3.6"
   }
 }

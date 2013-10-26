@@ -9,6 +9,8 @@ var user = require('./routes/user');
 var post = require('./routes/post');
 var http = require('http');
 var path = require('path');
+var moment = require('moment');
+
 
 var ws = require('websocket.io');
 
@@ -41,10 +43,14 @@ var socket = ws.attach(server);
 socket.on('connection', function(client) {
   console.log('websocket connected');
   client.on('message', function(message) {
-    console.log('websocket message: ' + JSON.stringify(message));
+    
+    console.log('websocket message: ' + message);
+    var m = JSON.parse(message);
+    m.date = moment().format('YYYY/MM/DD HH:mm:ss');
 
+    console.log('message to be sent: ' + JSON.stringify(m));
     socket.clients.forEach(function(client) {
-      client.send(message);
+      client.send(JSON.stringify(m));
     });
   });
 });

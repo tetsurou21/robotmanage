@@ -11,6 +11,7 @@
     "feedparser": "*",
     "request": "*",
     "websocket.io": "*",
-    "ws": "*"
+    "ws": "*",
+    "moment": "*"
   }
 }

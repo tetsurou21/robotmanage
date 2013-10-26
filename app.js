@@ -51,7 +51,7 @@ socket.on('connection', function(client) {
 
     console.log('message to be sent: ' + JSON.stringify(m));
 
-    var p = spawn(command, [m.message]);
+    var p = spawn(command, [m.message.substring(0,32)]);
     console.log('command executed: ' + command);
     p.stdout.on('data', function (data) {
       console.log('stdout: ' + data);

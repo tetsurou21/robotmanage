@@ -50,7 +50,8 @@ socket.on('connection', function(client) {
 
     console.log('message to be sent: ' + JSON.stringify(m));
     socket.clients.forEach(function(client) {
-      client.send(JSON.stringify(m));
+      if (client != null)
+	client.send(JSON.stringify(m));
     });
   });
 });

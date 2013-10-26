@@ -13,18 +13,19 @@ $(document).ready(
       );
     };
 
-    $('#form').submit(
-      function() {
-	var message = $('#message');
-
-	ws.send(JSON.stringify({
-	  'user': userName,
-	  'message': message.val()
-	}));
-
-	return false;
+    $('#message').keydown(function(event) {
+      if (event.keyCode !== 13 || $('#message').val().length <= 0) {
+	return true;
       }
-    );
+      var message = $('#message');
+
+      ws.send(JSON.stringify({
+	'user': userName,
+	'message': message.val()
+      }));
+
+      return false;      
+    });
   }
 );
 

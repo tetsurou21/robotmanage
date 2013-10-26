@@ -1,6 +1,9 @@
 $(document).ready(
   function() {
-    var ws = new WebSocket("ws://localhost:3000/");
+    var userName = 'guest' + Math.floor(Math.random() * 100);
+    $('#user-name').append(userName);
+
+    var ws = new WebSocket("ws://localhost:3000/");   
     ws.onmessage = function(event) {
       var data = JSON.parse(event.data);
       var message = data.user + ': ' + data.message;
@@ -15,7 +18,7 @@ $(document).ready(
 	var message = $('#message');
 
 	ws.send(JSON.stringify({
-	  'user': 'anonymous',
+	  'user': userName,
 	  'message': message.val()
 	}));
 

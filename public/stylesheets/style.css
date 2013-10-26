@@ -6,3 +6,12 @@ body {
 a {
   color: #00B7FF;
 }
+
+.meta {
+  color: #999999;
+  font-size: 0.9em;
+}
+
+.chat-time {
+  margin-left: 15px;
+}

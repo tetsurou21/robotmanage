@@ -4,8 +4,10 @@ block scripts
   script(src='/javascripts/client.js')
 
 block content
-  h1= title
-  p
-    span#user-name
-    input#message(type='text', name='message', placeholder='メッセージをどうぞ')
-  dl#messages
+  div.container
+    h1= title
+    div.input-prepend
+      span#user-name.add-on
+        i.icon-user
+      input#message(type='text', placeholder='メッセージをどうぞ')
+    ul#messages.unstyled.row-fluid

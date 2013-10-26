@@ -1,16 +1,20 @@
 $(document).ready(
   function() {
-    var userName = 'guest' + Math.floor(Math.random() * 100);
+    var userName = 'ゲスト' + Math.floor(Math.random() * 100);
     $('#user-name').append(userName);
 
     var ws = new WebSocket("ws://localhost:3000/");   
     ws.onmessage = function(event) {
       var data = JSON.parse(event.data);
-      var message = data.user + ': ' + data.message;
-      $('#messages').prepend(
-	"<dt>" + data.date + "</dt><dd>" + 
-	  message + "</dd>"
-      );
+      var item = $('<li/>').append(
+	$('<div/>').append(
+	  $('<i/>').addClass('icon-user'),
+	  data.user,
+	  $('<small/>').addClass('meta chat-time').append(data.date),
+	  $('<div/>').append(data.message)
+	)
+      ).addClass('well well-small');
+      $('#messages').prepend(item).hide().fadeIn(500);
     };
 
     $('#message').keydown(function(event) {

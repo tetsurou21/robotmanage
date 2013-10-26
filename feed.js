@@ -10,6 +10,7 @@ request('http://b.hatena.ne.jp/hotentry.rss')
     var stream = this, item;
     while (item = stream.read()) {
       var jstr = JSON.stringify({
+	type: 'feed',
 	user: 'フィード',
 	message: item.title
       });

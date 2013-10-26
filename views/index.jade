@@ -6,8 +6,9 @@ block scripts
 block content
   div.container
     h1= title
-    div.input-prepend
-      span#user-name.add-on
-        i.icon-user
-      input#message(type='text', placeholder='メッセージをどうぞ')
+    div#manage-form
+      div.input-prepend
+        span#user-name.add-on
+          i.icon-user
+        input#message(type='text', placeholder='メッセージをどうぞ')
     ul#messages.unstyled.row-fluid

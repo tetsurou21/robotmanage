@@ -6,9 +6,16 @@ $(document).ready(
     var ws = new WebSocket("ws://localhost:3000/");   
     ws.onmessage = function(event) {
       var data = JSON.parse(event.data);
+      var icon;
+      if (data.type === 'feed') {
+	icon = $('<i/>').addClass('icon-large').addClass('icon-rss');
+      }
+      else {
+	icon = $('<i/>').addClass('icon-user');
+      }
       var item = $('<li/>').append(
 	$('<div/>').append(
-	  $('<i/>').addClass('icon-user'),
+	  icon,
 	  data.user,
 	  $('<small/>').addClass('meta chat-time').append(data.date),
 	  $('<div/>').append(data.message)

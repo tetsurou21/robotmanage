@@ -10,6 +10,8 @@ var post = require('./routes/post');
 var http = require('http');
 var path = require('path');
 
+var ws = require('websocket.io');
+
 var app = express();
 
 // all environments
@@ -32,6 +34,25 @@ app.get('/', routes.index);
 app.get('/users', user.list);
 app.post('/posts', post.create);
 
-http.createServer(app).listen(app.get('port'), function(){
+var server = http.createServer(app);
+var socket = ws.attach(server);
+
+
+socket.on('connection', function(client) {
+  console.log('websocket connected');
+  client.on('message', function(message) {
+    console.log('websocket message: ' + JSON.stringify(message));
+
+    socket.clients.forEach(function(client) {
+      client.send(message);
+    });
+  });
+});
+
+socket.on('close', function(client) {
+  console.log('websocket closed');
+});
+
+server.listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });

@@ -1,5 +1,8 @@
-var FeedParser = require('feedparser')
-, request = require('request');
+var FeedParser = require('feedparser'),
+request = require('request'),
+WebSocket = require('ws');
+
+var ws = new WebSocket('ws://localhost:3000');
 
 request('http://b.hatena.ne.jp/hotentry.rss')
   .pipe(new FeedParser())
@@ -13,13 +16,10 @@ request('http://b.hatena.ne.jp/hotentry.rss')
 
       console.log('jstr: ' + jstr);
 
-      request({
-      	'uri': 'http://localhost:3000/posts',
-      	'method': 'POST',
-      	'body': jstr,
-      	'headers': {
-      	  'Content-Type': 'application/json'
-      	}
-      });
+      ws.send(jstr);
     }
   })
+  .on('end', function() {
+    ws.terminate();
+  });
+

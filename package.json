@@ -10,6 +10,7 @@
     "jade": "*",
     "feedparser": "*",
     "request": "*",
-    "websocket.io": "*"
+    "websocket.io": "*",
+    "ws": "*"
   }
 }

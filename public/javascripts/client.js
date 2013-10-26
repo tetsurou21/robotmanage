@@ -6,11 +6,14 @@ $(document).ready(
 	$.post(
 	  'posts',
 	  {
+	    'user': 'anonymous',
 	    'message': message.val()
 	  },
 	  function (data) {
 	    var date = new Date();
-	    $('#messages').prepend("<dt>" + date + "</dt><dd>" + data.message + "</dd>");
+	    var message = data.user + ': ' + data.message;
+	    $('#messages').prepend("<dt>" + date + "</dt><dd>" + 
+				   message + "</dd>");
 	  }
 	);
 	return false;

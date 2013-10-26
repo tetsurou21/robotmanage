@@ -10,6 +10,7 @@ var post = require('./routes/post');
 var http = require('http');
 var path = require('path');
 var moment = require('moment');
+var spawn = require('child_process').spawn;
 
 
 var ws = require('websocket.io');
@@ -38,7 +39,7 @@ app.post('/posts', post.create);
 
 var server = http.createServer(app);
 var socket = ws.attach(server);
-
+var command = 'echo';
 
 socket.on('connection', function(client) {
   console.log('websocket connected');
@@ -49,6 +50,13 @@ socket.on('connection', function(client) {
     m.date = moment().format('YYYY/MM/DD HH:mm:ss');
 
     console.log('message to be sent: ' + JSON.stringify(m));
+
+    var p = spawn(command, [m.message]);
+    console.log('command executed: ' + command);
+    p.stdout.on('data', function (data) {
+      console.log('stdout: ' + data);
+    });
+
     socket.clients.forEach(function(client) {
       if (client != null)
 	client.send(JSON.stringify(m));
